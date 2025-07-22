@@ -1,3 +1,7 @@
-node_modules/
+node_modules
+dist
 .env.dev
 .env.production
+index.js
+/src/**/*.js
+/src/*.js
