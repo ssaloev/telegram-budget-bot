@@ -13,10 +13,10 @@ npm install
 
 `.env` - see example of ENV variable names
 ```bash
-npm run:prod
+npm run start:prod
 ```
 #### Run development
 `.env.development` - should exist
 ```bash
-npm run:dev
+npm run start:dev
 ```
