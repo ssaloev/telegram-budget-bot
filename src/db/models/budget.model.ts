@@ -11,7 +11,6 @@ export interface IBudget extends Document {
 const BudgetSchema = new Schema<IBudget>({
     channelId: { type: Number, required: true },
     mainBudget: { type: Number, required: true },
-    additionalBudget: { type: Number, required: true },
 });
 
 BudgetSchema.methods.getFullBudget = function getFullBudget() {
@@ -21,11 +20,6 @@ BudgetSchema.methods.getFullBudget = function getFullBudget() {
 BudgetSchema.methods.subtractMainBudget = function subtractMainBudget(value: number) {
     this.mainBudget = subtract(this.mainBudget, value);
     return this.mainBudget;
-}
-
-BudgetSchema.methods.subtractAdditionalBudget = function subtractAdditionalBudget(value: number) {
-    this.additionalBudget = subtract(this.additionalBudget, value);
-    return this.additionalBudget;
 }
 
 function subtract(from: number, value: number) {
