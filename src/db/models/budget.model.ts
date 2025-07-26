@@ -1,35 +1,30 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { History } from './history.model';
 
-
-export interface IBudget extends Document {
+export interface IBudgetFields {
     channelId: number;
     mainBudget: number;
-    additionalBudget: number;
 }
+
+export interface IBudget extends Document, IBudgetFields {}
 
 const BudgetSchema = new Schema<IBudget>({
     channelId: { type: Number, required: true },
     mainBudget: { type: Number, required: true },
 });
 
-BudgetSchema.methods.getFullBudget = function getFullBudget() {
-    return this.mainBudget + this.additionalBudget;
-}
-
 BudgetSchema.methods.subtractMainBudget = function subtractMainBudget(value: number) {
-    this.mainBudget = subtract(this.mainBudget, value);
+    this.mainBudget -= Math.abs(value);
+    if (this.mainBudget < 0) {
+        this.mainBudget = 0;
+    }
+    console.log(this.mainBudget);
     return this.mainBudget;
 }
 
-function subtract(from: number, value: number) {
-    from -= value;
-    if (from < 0) {
-        from = 0;
-    }
-
-    return from;
-
+BudgetSchema.methods.addMainBudget = function subtractMainBudget(value: number) {
+    this.mainBudget += value;
+    return this.mainBudget;
 }
 
 // @todo
