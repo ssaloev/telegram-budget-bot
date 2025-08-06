@@ -3,10 +3,10 @@ import type { Context } from "grammy/out/context";
 import { Budget } from '../db/models/budget.model'
 import {logError, logInfo} from "../utils/log";
 import {getActionData, isActionAct, locale, replyWhenMessageInWrongFormat} from "./botUtils";
-import {createBudget, findBudgetByChannelId} from "../db/services/budget.service";
+import {createBudget, findBudgetByChannelId, createIfDontExist} from "../db/services/budget";
 import {ACTION_TYPES} from "./types";
 
-export async function handleChannelMessage(ctx: Context): Promise<Message.TextMessage> {
+export async function handleChannelMessage(ctx: Context): Promise<Message.TextMessage | void> {
     if (!ctx.channelPost) {
         return;
     }
@@ -24,15 +24,10 @@ export async function handleChannelMessage(ctx: Context): Promise<Message.TextMe
 
         await ctx.reply(locale.handle);
         const actionData = getActionData(text);
-
-
-        let getBudget = await findBudgetByChannelId(id);
-        if (!getBudget) {
-            getBudget = await createBudget({
-                channelId: id,
-                mainBudget: 0,
-            });
-        }
+        const getBudget = await createIfDontExist({
+            channelId: id,
+            mainBudget: 0,
+        });
 
         if (!getBudget?.mainBudget && actionData.actionType === ACTION_TYPES.SUBTRACT_BUDGET) {
             return ctx.reply(locale.trySubtractFromEmpty);

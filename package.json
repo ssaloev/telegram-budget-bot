@@ -10,6 +10,7 @@
     "set:env:dev": "dotenv -e .env.dev",
     "start:prod": "dotenv -e .env.production -- node dist/index.js",
     "start:dev": "dotenv -e .env.dev -- ts-node-dev --respawn --transpile-only src/index.ts",
+    "start:dev:type:check": "dotenv -e .env.dev -- ts-node-dev --respawn src/index.ts",
     "build:prod": "dotenv -e .env.production -- npm run build",
     "build:dev": "dotenv -e .env.dev -- npm run build",
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=esm",

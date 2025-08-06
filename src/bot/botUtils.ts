@@ -14,7 +14,7 @@ export const locale = {
     error: 'Ошибка/Хатоги шуд ❌',
 };
 
-export function isActionAct(text) {
+export function isActionAct(text: string) {
     return new RegExp(fullPattern, 'iu').test(text);
 }
 
@@ -39,7 +39,7 @@ export function replyWhenMessageInWrongFormat(): string {
     return `Не правильный ввод данных ‼️
 Пожалуйста введите данные в формате: 
 
-+СУММА/категория 
+СУММА/категория 
 или
 -СУММА/категория
 
@@ -52,7 +52,7 @@ export function replyWhenMessageInWrongFormat(): string {
 Воридкунии нодурусти маълумот‼️
 Барои ворид кардани маълумот дуруст, формати зеринро истифода баред:
 
-+МАБЛАҒ/категория
+МАБЛАҒ/категория
 екин
 -МАБЛАҒ/категория 
 
