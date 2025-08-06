@@ -1,11 +1,20 @@
-import {getActionData, } from "../../../bot/botUtils";
+import {getActionData, locale,} from "../../../bot/botUtils";
 import {createIfDontExist} from "./index";
 import {ACTION_TYPES} from "../../../bot/types";
-import {HandeActionError} from "../../../utils/errors/HandeActionError";
-import {ERROR_TEXT} from "./errorText";
-import type {HandleActionChannel} from './types'
+import type {Context} from "grammy/out/context";
 
-export async function handeActionFromChannel({ text, id }: HandleActionChannel) {
+export async function handeActionFromChannel(ctx: Context) {
+    if (!ctx.channelPost) {
+        return;
+    }
+
+    const text = ctx.channelPost.text;
+    const id = ctx.channelPost.chat.id;
+
+    if (!text) {
+        return;
+    }
+
     const actionData = getActionData(text);
     const getBudget = await createIfDontExist({
         channelId: id,
@@ -13,7 +22,7 @@ export async function handeActionFromChannel({ text, id }: HandleActionChannel) 
     });
 
     if (!getBudget?.mainBudget && actionData.actionType === ACTION_TYPES.SUBTRACT_BUDGET) {
-        throw new HandeActionError(ERROR_TEXT.TRY_SUBTRACT_FROM_EMPTY);
+        return ctx.reply(locale.trySubtractFromEmpty);
     }
 
     switch (actionData.actionType) {
@@ -32,5 +41,5 @@ export async function handeActionFromChannel({ text, id }: HandleActionChannel) 
 
     await getBudget.save();
 
-    return getBudget.mainBudget;
+    await ctx.reply(locale.yourBudget + getBudget.mainBudget);
 }

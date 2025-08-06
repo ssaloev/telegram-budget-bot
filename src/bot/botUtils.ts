@@ -14,7 +14,10 @@ export const locale = {
     error: 'Ошибка/Хатоги шуд ❌',
 };
 
-export function isActionAct(text: string) {
+export function isActionAct(text?: string) {
+    if (!text) {
+        return false;
+    }
     return new RegExp(fullPattern, 'iu').test(text);
 }
 
