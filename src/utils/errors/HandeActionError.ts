@@ -1,4 +1,4 @@
-import {BaseError} from "../../../utils/BaseError";
+import {BaseError} from "./BaseError";
 
 export class HandeActionError extends BaseError {
     constructor(message: string) {

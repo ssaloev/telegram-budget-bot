@@ -16,6 +16,7 @@ export async function handleChannelMessage(ctx: Context): Promise<Message.TextMe
         const id = ctx.channelPost.chat.id;
 
         logInfo('Channel post received: ', text, id);
+        logInfo('Channel post received: ', ctx.channelPost);
         const isValid = text && isActionAct(text);
         if (!text || !isValid) {
             return ctx.reply(replyWhenMessageInWrongFormat());

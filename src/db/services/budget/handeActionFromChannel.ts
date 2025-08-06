@@ -1,10 +1,7 @@
-import type {Context} from "grammy/out/context";
-import type {Message} from "grammy/out/types";
-import {getActionData, isActionAct, locale, replyWhenMessageInWrongFormat} from "../../../bot/botUtils";
+import {getActionData, } from "../../../bot/botUtils";
 import {createIfDontExist} from "./index";
 import {ACTION_TYPES} from "../../../bot/types";
-import {logError} from "../../../utils/log";
-import {HandeActionError} from "./HandeActionError";
+import {HandeActionError} from "../../../utils/errors/HandeActionError";
 import {ERROR_TEXT} from "./errorText";
 import type {HandleActionChannel} from './types'
 
@@ -16,7 +13,7 @@ export async function handeActionFromChannel({ text, id }: HandleActionChannel) 
     });
 
     if (!getBudget?.mainBudget && actionData.actionType === ACTION_TYPES.SUBTRACT_BUDGET) {
-        return new HandeActionError(ERROR_TEXT.TRY_SUBTRACT_FROM_EMPTY);
+        throw new HandeActionError(ERROR_TEXT.TRY_SUBTRACT_FROM_EMPTY);
     }
 
     switch (actionData.actionType) {
