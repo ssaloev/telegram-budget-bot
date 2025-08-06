@@ -1,5 +1,5 @@
 import {getActionData, locale,} from "../../../bot/botUtils";
-import {createIfDontExist} from "./index";
+import {createIfDontExist} from "./createIfDontExist";
 import {ACTION_TYPES} from "../../../bot/types";
 import type {Context} from "grammy/out/context";
 

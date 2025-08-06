@@ -1,5 +1,5 @@
-import {ACTION_TYPES} from "./types";
-import type { ActionType, ActionChannelData } from "./types";
+import {ACTION_TYPES, COMMAND_TYPES} from "./types";
+import type { ActionType, ActionChannelData, CommandType } from "./types";
 import {logInfo} from "../utils/log";
 
 const amountRegex = '-?\\d+';
@@ -21,6 +21,29 @@ export function isActionAct(text?: string) {
     return new RegExp(fullPattern, 'iu').test(text);
 }
 
+function getRegexpForCommands() {
+    const keys = Object.keys(COMMAND_TYPES) as Array<keyof typeof COMMAND_TYPES>
+    const allCommands = keys.reduce((acc, key, index, arr) => {
+        const value = COMMAND_TYPES[key];
+
+        if (index === arr.length - 1) {
+            return acc + `${value}`
+        }
+
+        return `${acc}${value}|`
+    }, '')
+
+    return new RegExp(`^/${allCommands}$`, 'ig');
+
+}
+
+export function isCommandAct(text?: string) {
+    if (!text) {
+        return false;
+    }
+    return getRegexpForCommands().test(text);
+}
+
 export function getActionData(text: string): ActionChannelData {
     const matchAll = text.matchAll(new RegExp(fullPattern, 'iug'));
     const allMatchList = Array.from(matchAll);
@@ -30,6 +53,10 @@ export function getActionData(text: string): ActionChannelData {
         actionType: detectActionType(text),
         modifiedType: matchList[2],
     };
+}
+
+export function getCommand(text: string): CommandType {
+   return text.replace('/', '').toUpperCase();
 }
 
 export function detectActionType(text: string): ActionType {
