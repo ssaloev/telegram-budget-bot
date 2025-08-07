@@ -10,6 +10,7 @@ export const locale = {
     handle: 'Обрабатываем/Коркард ⌛',
     handled: 'Обрабатали/Хисоб кардем ✅',
     yourBudget: 'БАЛАНС 💵: ',
+    history: 'История 🗓️: ',
     trySubtractFromEmpty: 'Баланс 0',
     error: 'Ошибка/Хатоги шуд ❌',
 };
