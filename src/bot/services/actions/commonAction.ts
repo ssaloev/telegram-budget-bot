@@ -20,7 +20,6 @@ export async function commonAction(ctx: Context): Promise<void | CommonAction> {
     const model = await createIfDontExist({
         channelId: id,
         mainBudget: 0,
-        modifiedType: actionData.modifiedType,
     })
 
    return {

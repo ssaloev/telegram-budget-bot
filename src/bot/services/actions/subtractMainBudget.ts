@@ -13,7 +13,7 @@ export async function subtractMainBudget(ctx: Context) {
         return ctx.reply(locale.trySubtractFromEmpty);
     }
 
-    data.model.subtractMainBudget(data.actionData.value);
+    data.model.subtractMainBudget(data.actionData.value, data.actionData.modifiedType);
     await data.model.save();
 
     await ctx.reply(locale.yourBudget + data.model.mainBudget);

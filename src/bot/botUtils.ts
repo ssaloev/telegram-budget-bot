@@ -13,6 +13,7 @@ export const locale = {
     history: 'История 🗓️: ',
     trySubtractFromEmpty: 'Баланс 0',
     error: 'Ошибка/Хатоги шуд ❌',
+    addedToChannel: 'Бот по подсчету вашего бюджета добавлен ✅',
 };
 
 export function isActionAct(text?: string) {

@@ -9,7 +9,7 @@ export async function addMainBudget(ctx: Context) {
         return;
     }
 
-    data.model.addMainBudget(data.actionData.value);
+    data.model.addMainBudget(data.actionData.value, data.actionData.modifiedType);
 
     await data.model.save();
 
