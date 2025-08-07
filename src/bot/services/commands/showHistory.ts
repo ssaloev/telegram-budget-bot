@@ -13,7 +13,18 @@ export async function showHistory(ctx: Context) {
 
     const history = await getHistoryForLastMonth(id);
 
-    logInfo(history);
-
     await ctx.reply(locale.history);
+
+    if (history.length < 1) {
+        return ctx.reply(locale.emptyHistory);
+    }
+
+    const firstDayOfMonth = history[0];
+    const space = '-'.repeat(10);
+
+    await ctx.reply(space);
+    await ctx.reply('В начале месяца было: ' + firstDayOfMonth.currentBudget);
+
+    await ctx.reply('Конец подсчета истории');
+    await ctx.reply(space);
 }

@@ -11,6 +11,7 @@ export const locale = {
     handled: 'Обрабатали/Хисоб кардем ✅',
     yourBudget: 'БАЛАНС 💵: ',
     history: 'История 🗓️: ',
+    emptyHistory: 'Пока не было затрат',
     trySubtractFromEmpty: 'Баланс 0',
     error: 'Ошибка/Хатоги шуд ❌',
     addedToChannel: 'Бот по подсчету вашего бюджета добавлен ✅',
