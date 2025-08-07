@@ -8,6 +8,7 @@ import { History } from './history.model';
 export interface IBudgetFields {
     channelId: number;
     mainBudget: number;
+    modifiedType: String;
 }
 
 export interface IBudgetMethods {
@@ -20,6 +21,7 @@ export type BudgetDocument = HydratedDocument<IBudgetFields, IBudgetMethods>;
 const BudgetSchema = new Schema<IBudgetFields, Model<HydratedDocument<IBudgetFields, IBudgetMethods>>, IBudgetMethods>({
     channelId: { type: Number, required: true },
     mainBudget: { type: Number, required: true },
+    modifiedType: { type: String, required: true },
 });
 
 BudgetSchema.methods.subtractMainBudget = function (

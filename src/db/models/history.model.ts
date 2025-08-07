@@ -1,13 +1,31 @@
-import mongoose from 'mongoose';
+import mongoose, {
+    Schema,
+    HydratedDocument,
+    Model,
+} from 'mongoose';
 
-const historySchema = new mongoose.Schema({
-    documentId: mongoose.Schema.Types.ObjectId,
+export interface IHistoryFields {
+    channelId: Number,
     collectionName: String,
-    currentData: Object,
-    previousData: Object,
-    modifiedAt: { type: Date, default: Date.now },
+    createdAt?: Date,
     modifiedType: String,
+    actionType: String;
+    budgetBefore: Number;
+    budgetAfter: Number;
+}
+
+export interface IHistoryMethods {}
+
+export type HistoryDocument = HydratedDocument<IHistoryFields, IHistoryMethods>;
+
+const HistorySchema = new Schema<IHistoryFields, Model<HydratedDocument<IHistoryFields, IHistoryMethods>>, IHistoryMethods>({
+    channelId: Number,
+    collectionName: String,
+    createdAt: { type: Date, default: Date.now },
+    modifiedType: String,
+    actionType: String,
+    budgetBefore: Number,
+    budgetAfter: Number,
 });
 
-export const History = mongoose.model('History', historySchema);
-
+export const History = mongoose.model('History', HistorySchema);
