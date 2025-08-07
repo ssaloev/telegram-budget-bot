@@ -4,7 +4,7 @@ import {GetHistoryForPeriod} from "./types";
 export async function getHistoryForPeriod(data: GetHistoryForPeriod) {
     const filter = {
         channelId: data.channelId,
-        modifiedAt: {
+        createdAt: {
             $gte: data.from,
             $lte: data.to,
         },
