@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
 export async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/telegramBotBudget');
+    const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/telegramBotBudget";
+
+    await mongoose.connect(mongoUri, {
+        authSource: "admin" // needed if MongoDB has auth enabled
+    });
 }
