@@ -3,10 +3,12 @@ import { getCommand, replyWhenMessageInWrongFormat} from "../../botUtils";
 import {COMMAND_TYPES} from "../../types";
 import {showHistory} from "./showHistory";
 import {showBudget} from "./showBudget";
+import {showExpenses} from "./showExpenses";
 
 const dispatchAction = {
     [COMMAND_TYPES.SHOW_BUDGET]: showBudget,
     [COMMAND_TYPES.SHOW_HISTORY]: showHistory,
+    [COMMAND_TYPES.SHOW_EXPENSES]: showExpenses,
 }
 
 export async function handeCommand(ctx: Context) {
@@ -15,8 +17,6 @@ export async function handeCommand(ctx: Context) {
     }
 
     const text = ctx.channelPost.text;
-    const id = ctx.channelPost.chat.id;
-
     if (!text) {
         return;
     }
