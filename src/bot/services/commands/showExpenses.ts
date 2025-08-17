@@ -20,6 +20,10 @@ export async function showExpenses(ctx: Context) {
     }
 
     const historyText = expensesByModifyType(history);
+
+    if (!historyText) {
+        return ctx.reply(locale.emptyHistory);
+    }
     await ctx.reply(historyText);
 }
 
