@@ -6,10 +6,10 @@ import mongoose, {
 import {logInfo} from "../../utils/log";
 
 export interface IHistoryFields {
-    channelId: Number,
+    channelId: number,
     createdAt?: Date,
-    modifiedType?: String,
-    currentBudget: Number;
+    modifiedType?: string,
+    currentBudget: number;
 }
 
 export interface IHistoryMethods {}

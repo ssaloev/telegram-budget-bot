@@ -1,7 +1,9 @@
 import {locale} from "../../botUtils";
 import type {Context} from "grammy/out/context";
 import {getHistoryForLastMonth} from "../../../db/services/history";
-import {logInfo} from "../../../utils/log";
+import {IHistoryFields} from "../../../db/models/history.model";
+import {getDayMonthYear} from "../../../utils/dates/dateFormat";
+import {getFormatedPriceNumber} from "../../../utils/numbers/formatNumbers";
 
 
 export async function showHistory(ctx: Context) {
@@ -19,12 +21,33 @@ export async function showHistory(ctx: Context) {
         return ctx.reply(locale.emptyHistory);
     }
 
-    const firstDayOfMonth = history[0];
-    const space = '-'.repeat(10);
+    const historyText = makeHistory(history);
+    await ctx.reply(historyText);
+}
 
-    await ctx.reply(space);
-    await ctx.reply('В начале месяца было: ' + firstDayOfMonth.currentBudget);
+function makeHistory(history: Array<IHistoryFields>) {
+    let historyText = '';
+    for (let i = 0; i < history.length; i += 1) {
+        const historyValue = history[i];
+        const isFirstDayOfMonth = i === 0;
+        const createdAt = historyValue.createdAt
+        if (!createdAt) {
+            continue;
+        }
+        const date = getDayMonthYear(createdAt);
 
-    await ctx.reply('Конец подсчета истории');
-    await ctx.reply(space);
+        let budgetLeft = '';
+        if (isFirstDayOfMonth) {
+            budgetLeft =  `🗓️${date} Было: ${getFormatedPriceNumber(historyValue.currentBudget)} TJS \n`;
+        } else {
+            const currentBudget = historyValue.currentBudget;
+            const previousBudget = history[i - 1].currentBudget;
+            const diff = currentBudget - previousBudget;
+            budgetLeft =  `🗓️${date} Стало: ${getFormatedPriceNumber(historyValue.currentBudget)} TJS (${getFormatedPriceNumber(diff)} ${historyValue.modifiedType})`;
+        }
+        historyText += `${budgetLeft}\n`;
+    }
+
+    historyText += `\n Текущий бюджет: ${getFormatedPriceNumber(history[history.length - 1].currentBudget)} TJS`;
+    return historyText;
 }
