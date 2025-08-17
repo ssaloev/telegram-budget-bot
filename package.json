@@ -16,7 +16,8 @@
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=esm",
     "build:docker": "docker build -t budged-bot .",
     "start:docker:prod": "docker run --rm -it --env-file .env.production budged-bot",
-    "deploy": ""
+    "deploy": "fly deploy --remote-only",
+    "restart:deployed:app": "fly apps restart budged-bot"
   },
   "author": "SSaloev",
   "license": "ISC",
