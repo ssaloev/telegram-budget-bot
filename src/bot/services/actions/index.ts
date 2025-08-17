@@ -15,13 +15,13 @@ export async function handeAction(ctx: Context) {
     }
 
     const text = ctx.channelPost.text;
-    const id = ctx.channelPost.chat.id;
 
     if (!text) {
         return;
     }
 
     const actionType = getActionData(text).actionType;
+    console.log('actionType ', actionType);
     const callback = dispatchAction[actionType];
 
     if (!callback) {
