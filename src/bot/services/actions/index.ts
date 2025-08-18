@@ -1,5 +1,5 @@
 import type {Context} from "grammy/out/context";
-import {getActionData, locale, replyWhenMessageInWrongFormat} from "../../botUtils";
+import {getActionData, replyWhenMessageInWrongFormat} from "../../botUtils";
 import {ACTION_TYPES} from "../../types";
 import {addMainBudget} from "./addMainBudget";
 import {subtractMainBudget} from "./subtractMainBudget";
@@ -21,7 +21,6 @@ export async function handeAction(ctx: Context) {
     }
 
     const actionType = getActionData(text).actionType;
-    console.log('actionType ', actionType);
     const callback = dispatchAction[actionType];
 
     if (!callback) {
