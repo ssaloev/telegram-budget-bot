@@ -18,7 +18,8 @@
     "build:docker": "docker build -t budged-bot .",
     "start:docker:prod": "docker run --rm -it --env-file .env.production budged-bot",
     "deploy": "fly deploy --remote-only",
-    "restart:deployed:app": "fly apps restart budged-bot"
+    "restart:deployed:app": "fly apps restart budged-bot",
+    "prepare": "husky"
   },
   "author": "SSaloev",
   "license": "ISC",
@@ -26,6 +27,7 @@
     "@types/node": "^24.1.0",
     "dotenv-cli": "^9.0.0",
     "esbuild": "^0.25.8",
+    "husky": "^9.1.7",
     "oxlint": "^1.12.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
