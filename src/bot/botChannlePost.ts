@@ -20,8 +20,6 @@ export async function handleChannelMessage(ctx: Context): Promise<Message.TextMe
         await ctx.reply(locale.handle);
 
         await botMessageDispatcher(ctx);
-
-        await ctx.reply(locale.handled);
     } catch (e) {
         await botChannelHandleError(ctx, e);
     }
