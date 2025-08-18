@@ -12,7 +12,6 @@ export async function handleChatMember(ctx: Context): Promise<Message.TextMessag
 
     try {
         const { new_chat_member, old_chat_member } = ctx.myChatMember;
-        const status = ctx.myChatMember.new_chat_member.status;
         const chat = ctx.chat;
         if (!chat) {
             return;

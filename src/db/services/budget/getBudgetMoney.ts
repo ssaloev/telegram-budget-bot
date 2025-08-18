@@ -1,4 +1,3 @@
-import { Budget } from "../../models/budget.model";
 import {findBudgetByChannelId} from "./findBudgetByChannelId";
 
 export async function getBudgetMoney(id: number) {

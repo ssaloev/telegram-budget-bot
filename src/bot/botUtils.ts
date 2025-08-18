@@ -1,6 +1,5 @@
 import {ACTION_TYPES, COMMAND_TYPES} from "./types";
 import type { ActionType, ActionChannelData, CommandType } from "./types";
-import {logInfo} from "../utils/log";
 
 const amountRegex = '-?\\d+.?\\d+?';
 const categoryRegex = '[\\p{L}\\p{N}_]+\\s*';

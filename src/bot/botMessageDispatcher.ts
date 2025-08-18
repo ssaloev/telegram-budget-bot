@@ -3,10 +3,15 @@ import {Message} from "grammy/out/types";
 import {isActionAct, isCommandAct, replyWhenMessageInWrongFormat} from "./botUtils";
 import {handeAction} from "./services/actions";
 import {handeCommand} from "./services/commands";
+import xss from "xss";
 
 export async function botMessageDispatcher(ctx: Context): Promise<Message.TextMessage | void> {
     if (!ctx.channelPost) {
         return;
+    }
+
+    if (ctx.channelPost.text) {
+        ctx.channelPost.text = xss(ctx.channelPost.text);
     }
 
     const dispatcher = [

@@ -2,7 +2,6 @@ import type {Context} from "grammy/out/context";
 import {getActionData} from "../../botUtils";
 import {createIfDontExist} from "../../../db/services/budget";
 import {CommonAction} from "./types";
-import xss from 'xss';
 
 export async function commonAction(ctx: Context): Promise<void | CommonAction> {
     if (!ctx.channelPost) {
@@ -15,7 +14,6 @@ export async function commonAction(ctx: Context): Promise<void | CommonAction> {
     if (!text) {
         return;
     }
-    const actionData = getActionData(xss(text));
 
     const model = await createIfDontExist({
         channelId: id,

@@ -10,8 +10,8 @@ export interface IBudgetFields {
 }
 
 export interface IBudgetMethods {
-    subtractMainBudget(value: number, modifiedType: string): number;
-    addMainBudget(value: number, modifiedType: string): number;
+    subtractMainBudget(value: number): number;
+    addMainBudget(value: number): number;
 }
 
 export type BudgetDocument = HydratedDocument<IBudgetFields, IBudgetMethods>;
@@ -24,7 +24,6 @@ const BudgetSchema = new Schema<IBudgetFields, Model<HydratedDocument<IBudgetFie
 BudgetSchema.methods.subtractMainBudget = function (
     this: BudgetDocument,
     value: number,
-    modifiedType: String,
 ): number {
     this.mainBudget -= Math.abs(value);
     if (this.mainBudget < 0) {
@@ -36,13 +35,8 @@ BudgetSchema.methods.subtractMainBudget = function (
 BudgetSchema.methods.addMainBudget = function (
     this: BudgetDocument,
     value: number,
-    modifiedType: String,
 ): number {
-
-    const oldBudget = this.mainBudget;
-
     this.mainBudget += value;
-
     return this.mainBudget;
 };
 

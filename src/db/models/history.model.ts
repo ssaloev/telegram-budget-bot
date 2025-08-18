@@ -3,7 +3,6 @@ import mongoose, {
     HydratedDocument,
     Model,
 } from 'mongoose';
-import {logInfo} from "../../utils/log";
 
 export interface IHistoryFields {
     channelId: number,
